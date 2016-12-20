@@ -12,7 +12,9 @@ public class Main {
 		int stuPrefs[][] = {{2,1,3,4},{1,2,3,4},{3,2,1,4},{3,4,1,2},
 		                   {1,3,4,2},{4,1,2,3},{1,2,3,4},{1,2,4,3}};
 		SchoolChoice s = new SchoolChoice();
-		int[] result = s.Bostonmech(n,m,stuPrefs,schoolPrefs,q);
+		//int[] result = s.Bostonmech(n,m,stuPrefs,schoolPrefs,q);
+		//int[] result = s.Sosmmech(n,m,stuPrefs,schoolPrefs,q);
+		int [] result = s.Ttcmmech(n,m,stuPrefs,schoolPrefs,q);
 		for(int i=0;i<n;i++){
 		System.out.println(result[i]);
 		}
