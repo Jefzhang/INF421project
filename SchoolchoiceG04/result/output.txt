@@ -1,0 +1,9 @@
+We use the Boston mechanism to calculate the matching
+The final school choice calculated for every student is:
+2,1,3,3,1,4,3,2,
+We use the Top Trading Cycles Mechanism to calculate the matching
+The final school choice calculated for every student is:
+2,1,3,3,1,4,2,4,
+We use the Gale-Shapley Mechanism to calculate the matching
+The final school choice calculated for every student is:
+1,1,3,3,3,4,2,2,
