@@ -8,12 +8,12 @@ public class SchoolChoice implements SchoolChoiceInterface {
 	public int[] Bostonmech(int n, int m, int[][] stuPrefs, int[][] schoolPrefs, int[] quota) {
 		// TODO Auto-generated method stub
 		int[] choice = new int[n];    //store the final choice of every student
-		Stack<Integer> stuNonAllocated = new Stack<Integer>();   // students who are not allocated
+		Queue<Integer> stuNonAllocated = new LinkedList<>();// students who are not allocated
 		int[][] schoolPrefsInver = new int[m][n];                //matrix which store the preference to some student,facilitate the search 
 		int[] quotaRemain = quota;     // store the remain seats of every school after a round
 
 		for (int i = 1; i <=n; i++) {       //initialization 
-			stuNonAllocated.push(i);
+			stuNonAllocated.add(i);
 			choice[i-1] = -1;
 		}
 		for (int i = 0; i < m; i++) {      //calculate the inverse matrix
@@ -26,8 +26,10 @@ public class SchoolChoice implements SchoolChoiceInterface {
 			//we create a map to store informations: 
 			//***************key is some school id, and the corresponding value is a student class
 			Map<Integer, ArrayList<Student>> stubyschool = new HashMap<Integer, ArrayList<Student>>();
-			while (!stuNonAllocated.isEmpty()) {
-				int stu = stuNonAllocated.pop();        //student id
+			int sizeQueue = stuNonAllocated.size();
+			for(int i=0;i<sizeQueue;i++){
+			//while (!stuNonAllocated.isEmpty()) {
+				int stu = stuNonAllocated.poll();        //student id
 				int school = stuPrefs[stu-1][k];        // his k-th choice 
 				if (quotaRemain[school-1] > 0) {        //if there is still seat for his school chose, we add it to the list 
 					if (!stubyschool.containsKey(school)) { 
@@ -35,7 +37,7 @@ public class SchoolChoice implements SchoolChoiceInterface {
 					}
 					stubyschool.get(school).add(new Student(stu, schoolPrefsInver[school-1][stu-1]));
 				}
-				else stuNonAllocated.push(stu);         //if not, return back it to the stack for the next round
+				else stuNonAllocated.add(stu);         //if not, return back it to the stack for the next round
 			}
 			Iterator<Integer> keyiter = stubyschool.keySet().iterator(); 
 			while (keyiter.hasNext()) {
@@ -65,7 +67,7 @@ public class SchoolChoice implements SchoolChoiceInterface {
 				}
 				quotaRemain[schoolid-1] -= numseat;
 				while (!schlist.isEmpty()) {
-					stuNonAllocated.push(schlist.remove(0).id);
+					stuNonAllocated.add(schlist.remove(0).id);
 				}
 			}
 			if (num == n)
